@@ -82,7 +82,7 @@ function keyTyped(){
 //slingshot bird can fly off
 function mouseReleased(){
   setTimeout(() => {
-    slingshotConstraint.bodyB = null;
+    //slingshotConstraint.bodyB = null;
     slingshotConstraint.pointA = { x: 0, y: 0 };
   }, 100);
 }
