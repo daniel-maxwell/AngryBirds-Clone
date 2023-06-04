@@ -22,52 +22,41 @@ function setup() {
   canvas = createCanvas(1000, 600);
 
   engine = Engine.create();  // create an engine
-
   setupGround();
-
   setupPropeller();
-
   setupTower();
-
   setupSlingshot();
-
   setupMouseInteraction();
 }
 ////////////////////////////////////////////////////////////
 function draw() {
   background(0);
-
   Engine.update(engine);
-
   drawGround();
-
   drawPropeller();
-
   drawTower();
-
   drawBirds();
-
   drawSlingshot();
 }
 ////////////////////////////////////////////////////////////
 //use arrow keys to control propeller
 function keyPressed(){
-  if (keyCode == LEFT_ARROW){
-    angleSpeed+=0.01;
+  if (keyCode == LEFT_ARROW) {
+    angleSpeed+=0.1;
   }
-  else if (keyCode == RIGHT_ARROW){
-    angleSpeed-=0.01;
+  else if (keyCode == RIGHT_ARROW) {
+    angleSpeed-=0.1;
   }
 }
 ////////////////////////////////////////////////////////////
 function keyTyped(){
   //if 'b' create a new bird to use with propeller
-  if (key==='b'){
+  if (key==='b') {
     setupBird();
   }
 
   //if 'r' reset the slingshot
-  if (key==='r'){
+  if (key==='r') {
     removeFromWorld(slingshotBird);
     removeFromWorld(slingshotConstraint);
     setupSlingshot();
@@ -80,15 +69,15 @@ function keyTyped(){
 
 //if mouse is released destroy slingshot constraint so that
 //slingshot bird can fly off
-function mouseReleased(){
+function mouseReleased() {
   setTimeout(() => {
-    //slingshotConstraint.bodyB = null;
-    slingshotConstraint.pointA = { x: 200, y: 200 }; // edited
+    slingshotConstraint.bodyB = null;
+    slingshotConstraint.pointA = { x: 0, y: 0 }; // edited
   }, 100);
 }
 ////////////////////////////////////////////////////////////
 //tells you if a body is off-screen
-function isOffScreen(body){
+function isOffScreen(body) {
   var pos = body.position;
   return (pos.y > height || pos.x<0 || pos.x>width);
 }
