@@ -28,7 +28,6 @@ function drawPropeller(){
   angle+=angleSpeed;
   drawVertices(propeller.vertices);
   pop();
-
 }
 ////////////////////////////////////////////////////////////////
 function setupBird(){
@@ -41,6 +40,7 @@ function setupBird(){
 ////////////////////////////////////////////////////////////////
 function drawBirds(){
   push();
+  
   for(let i=0; i<birds.length; i++) {
     drawVertices(birds[i].vertices);
     if (isOffScreen(birds[i]))
@@ -64,6 +64,7 @@ function setupTower(){
       colors.push(color(0, 50 + Math.random() * 205 , 0));
     }
   }
+  World.add(engine.world, boxes);
 }
 ////////////////////////////////////////////////////////////////
 //draws tower of boxes
@@ -79,33 +80,31 @@ function drawTower(){
 ////////////////////////////////////////////////////////////////
 function setupSlingshot(){
   
-  slingshotBird = Bodies.circle(100, 100, 20, {friction: 0,
+  
+  slingshotBird = Bodies.polygon(200, 250, 1, 50, {friction: 0,
     restitution: 0.95 })
     Matter.Body.setMass(slingshotBird, slingshotBird.mass*10);
 
-  slingshotConstraint = Constraint.create({
+  var options = {
+    pointA: {x: 200, y: 200},
+    bodyB: slingshotBird,
+    pointB: {x: 0, y: 50},
+    length: 50,
+    stiffness: 0.001,
+    damping: 0.0001
+  }
 
-    pointA:{
-      x:slingshotBird.x,
-      y:slingshotBird.y,
-    },
-    
-    bodyB: slingshotBird.body,
-    pointB : {x: 100 , y: 100},
-    stiffness : 0.01,
-    damping : 0.0001
-})
-
-
+  slingshotConstraint = Constraint.create(options)
   
- World.add(engine.world, slingshotBird, slingshotConstraint);
-
+  World.add(engine.world, [slingshotBird, slingshotConstraint]);
+  
 
 }
 ////////////////////////////////////////////////////////////////
 //draws slingshot bird and its constraint
 function drawSlingshot(){
   push();
+  fill(0, 255, 0)
   drawVertices(slingshotBird);
   drawConstraint(slingshotConstraint);
   pop();

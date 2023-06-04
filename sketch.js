@@ -83,7 +83,7 @@ function keyTyped(){
 function mouseReleased(){
   setTimeout(() => {
     //slingshotConstraint.bodyB = null;
-    slingshotConstraint.pointA = { x: 0, y: 0 };
+    slingshotConstraint.pointA = { x: 200, y: 200 }; // edited
   }, 100);
 }
 ////////////////////////////////////////////////////////////
